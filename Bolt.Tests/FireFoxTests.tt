@@ -1,0 +1,72 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".g.cs" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+using Bolt.Core;
+using Bolt.Core.JsTestResultCollectors;
+using Bolt.Core.WebServers;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
+using System.Linq;
+
+<# 
+    // TODO: use an IJsTestUrlCollector object to get the list of Js Test Urls
+    var urls = new List<string>(){ "index.html" };
+
+    // TODO: Possibly drive these variables from config file.
+    var webProjectDir = "Bolt.QunitDemo";
+    var port = 12345;
+
+    var currentPath = Host.ResolvePath("");
+    var wwwPath = Path.Combine((new DirectoryInfo(currentPath)).Parent.FullName , webProjectDir);
+#>
+namespace Bolt.Tests
+{
+    [TestFixture]
+    public class JavascriptUnitTests
+    {
+        private readonly IWebServer _server = WebServerFactory.Create();
+        private readonly IWebDriver _webDriver = new FirefoxDriver();
+
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            _server.Launch(new WebServerStartInfo() 
+                                    { 
+                                        LocalPath = @"<#= wwwPath #>", 
+                                        Port = <#= port #> 
+                                    });
+        }
+
+        [TestFixtureTearDown]
+        public void Teardown()
+        {
+            _webDriver.Quit();
+           _server.Shutdown();
+        }
+
+        <# for (int i = 0; i < urls.Count; i++)
+        { #>
+
+        [Test]
+        public void Test_Generate_Test<#= i #>()
+        {
+            var testPageInfo = new JsTestPageInfo()
+            {
+                Url = "http://localhost:<#= port #>/<#= urls[i] #>"
+            };
+
+            TestExecutor.Execute(_webDriver, testPageInfo);
+            var testResult = testPageInfo.Results.FirstOrDefault();
+
+            // TODO: Aggregate all results
+            Assert.NotNull(testResult);
+            Assert.IsTrue(testResult.Result == UnitTestResult.Passed, testResult.Message);
+        }
+        <# } #>
+
+    }
+}
