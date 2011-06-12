@@ -5,6 +5,8 @@ namespace Bolt.Core.JsTestResultCollectors.Extensions
 {
     public static class WebDriverExtensions
     {
+        private const int Interval = 100;
+
         public static IWebElement GetElementWhenRendered(this IWebDriver driver, Func<IWebDriver, IWebElement> matchingFunction, int timeout = 0, int timeOutMax = 10000)
         {
             while (timeout < timeOutMax)
@@ -16,12 +18,12 @@ namespace Bolt.Core.JsTestResultCollectors.Extensions
                 }
                 catch (NoSuchElementException)
                 {
-                    //do nothing
+                    // do nothing
                 }
 
-                System.Threading.Thread.Sleep(250);
+                System.Threading.Thread.Sleep(Interval);
 
-                timeout += 250;
+                timeout += Interval;
             }
 
             return null;

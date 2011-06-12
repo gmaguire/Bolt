@@ -1,5 +1,3 @@
-using System;
-
 namespace Bolt.Core.WebServers
 {
     public interface IWebServer

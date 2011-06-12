@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsTestUrlCollectors\DummyUrlCollector.cs" />
     <Compile Include="JsTestUrlCollectors\IJsTestUrlCollector.cs" />
+    <Compile Include="JsTestUrlCollectors\JsTestUrlCollectorFactory.cs" />
+    <Compile Include="JsTestUrlCollectors\TextFileUrlCollector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

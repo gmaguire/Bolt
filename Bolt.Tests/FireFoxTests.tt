@@ -4,6 +4,9 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Linq" #>
+<# // TODO: Figure out how to switch from debug to release - Reference will have to change anyway when the project is nuget-ified #>
+<#@ assembly name="$(SolutionDir)Bolt.Generation\bin\Debug\Bolt.Generation.dll" #>
+<#@ import namespace="Bolt.Generation.JsTestUrlCollectors" #>
 using Bolt.Core;
 using Bolt.Core.JsTestResultCollectors;
 using Bolt.Core.WebServers;
@@ -13,15 +16,15 @@ using OpenQA.Selenium.Firefox;
 using System.Linq;
 
 <# 
-    // TODO: use an IJsTestUrlCollector object to get the list of Js Test Urls
-    var urls = new List<string>(){ "index.html" };
-
     // TODO: Possibly drive these variables from config file.
     var webProjectDir = "Bolt.QunitDemo";
     var port = 12345;
 
     var currentPath = Host.ResolvePath("");
     var wwwPath = Path.Combine((new DirectoryInfo(currentPath)).Parent.FullName , webProjectDir);
+
+    var urls = JsTestUrlCollectorFactory.Create().GetUrls(wwwPath);
+
 #>
 namespace Bolt.Tests
 {
@@ -45,28 +48,32 @@ namespace Bolt.Tests
         public void Teardown()
         {
             _webDriver.Quit();
-           _server.Shutdown();
+            _server.Shutdown();
         }
 
-        <# for (int i = 0; i < urls.Count; i++)
-        { #>
+        <# 
+            for (int i = 0; i < urls.Count; i++)
+            {
+                // TODO: Come up with a way to generate a nice test name from the url. 
+                // perhaps suggest a convention for naming the test urls - based on module name maybe?
+                var url =  urls[i];
+        #>
 
         [Test]
         public void Test_Generate_Test<#= i #>()
         {
             var testPageInfo = new JsTestPageInfo()
             {
-                Url = "http://localhost:<#= port #>/<#= urls[i] #>"
+                Url = "http://localhost:<#= port #>/<#= url #>"
             };
 
             TestExecutor.Execute(_webDriver, testPageInfo);
-            var testResult = testPageInfo.Results.FirstOrDefault();
 
-            // TODO: Aggregate all results
-            Assert.NotNull(testResult);
-            Assert.IsTrue(testResult.Result == UnitTestResult.Passed, testResult.Message);
+            var allTestsPassed = !testPageInfo.Results.Any(t => t.Result == UnitTestResult.Failed);
+
+            var messages = testPageInfo.Results.Select(t => string.Format("{0} - {1}\n{2}",t.TestName, t.Result.ToString(), t.Message)).ToArray();
+            Assert.IsTrue(allTestsPassed, string.Join("\n", messages));
         }
-        <# } #>
-
+<#  } #>
     }
 }

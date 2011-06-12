@@ -28,7 +28,7 @@ namespace Bolt.Tests
         public void Teardown()
         {
             _webDriver.Quit();
-           _server.Shutdown();
+            _server.Shutdown();
         }
 
         
@@ -41,12 +41,11 @@ namespace Bolt.Tests
             };
 
             TestExecutor.Execute(_webDriver, testPageInfo);
-            var testResult = testPageInfo.Results.FirstOrDefault();
 
-            // TODO: Aggregate all results
-            Assert.NotNull(testResult);
-            Assert.IsTrue(testResult.Result == UnitTestResult.Passed, testResult.Message);
+            var allTestsPassed = !testPageInfo.Results.Any(t => t.Result == UnitTestResult.Failed);
+
+            var messages = testPageInfo.Results.Select(t => string.Format("{0} - {1}\n{2}",t.TestName, t.Result.ToString(), t.Message)).ToArray();
+            Assert.IsTrue(allTestsPassed, string.Join("\n", messages));
         }
-        
     }
 }

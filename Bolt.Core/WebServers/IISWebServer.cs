@@ -6,7 +6,7 @@ namespace Bolt.Core.WebServers
 {
     public class IISWebServer : IWebServer
     {
-        private string _serverPath;
+        private readonly string _serverPath;
 
         private Process _process;
 
