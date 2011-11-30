@@ -31,11 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\Ionic.Zip.Reduced.dll</HintPath>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.0.4.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
@@ -46,38 +47,15 @@
     <Reference Include="pnunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Selenium.WebDriverBackedSelenium">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\Selenium.WebDriverBackedSelenium.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="ThoughtWorks.Selenium.Core">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\ThoughtWorks.Selenium.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.Chrome">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\WebDriver.Chrome.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.Common">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\WebDriver.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.Firefox">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\WebDriver.Firefox.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.IE">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\WebDriver.IE.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.Remote">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\WebDriver.Remote.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.Remote.Common">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\WebDriver.Remote.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Webdriver.Support">
-      <HintPath>..\packages\SeleniumDotNet.2.0.3\lib\net20\Webdriver.Support.dll</HintPath>
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.2.14.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

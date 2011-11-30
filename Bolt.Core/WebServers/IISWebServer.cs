@@ -17,6 +17,11 @@ namespace Bolt.Core.WebServers
                                 : Environment.SpecialFolder.ProgramFiles;
 
             _serverPath = Path.Combine(Environment.GetFolderPath(progFiles), @"IIS Express\iisexpress.exe");
+
+            if (!File.Exists(_serverPath))
+            {
+                throw  new FileNotFoundException("IIS Express not found. Please install IIS Express");
+            }
         }
 
         public void Launch(IWebServerStartInfo startInfo)
