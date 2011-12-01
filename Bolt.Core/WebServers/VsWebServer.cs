@@ -1,27 +1,34 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 
 namespace Bolt.Core.WebServers
 {
-    public class IISWebServer : IWebServer
+    public class VsWebServer : IWebServer
     {
         private readonly string _serverPath;
 
         private Process _process;
 
-        public IISWebServer()
+        public VsWebServer()
+        {
+            _serverPath = GetServerPath();
+        }
+
+        private static string GetServerPath()
         {
             var progFiles = Environment.Is64BitOperatingSystem
                                 ? Environment.SpecialFolder.ProgramFilesX86
                                 : Environment.SpecialFolder.ProgramFiles;
 
-            _serverPath = Path.Combine(Environment.GetFolderPath(progFiles), @"IIS Express\iisexpress.exe");
+            var serverPath = Path.Combine(Environment.GetFolderPath(progFiles), @"Common Files\microsoft shared\DevServer\10.0\WebDev.WebServer40.EXE");
 
-            if (!File.Exists(_serverPath))
+            if (!File.Exists(serverPath))
             {
-                throw  new FileNotFoundException("IIS Express not found. Please install IIS Express");
+                throw new FileNotFoundException("Cannot find the Visual Studio web server. Please install Visual Studio 2010.");
             }
+
+            return serverPath;
         }
 
         public void Launch(IWebServerStartInfo startInfo)

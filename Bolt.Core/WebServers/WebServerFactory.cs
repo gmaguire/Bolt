@@ -4,8 +4,8 @@
     {
         public static IWebServer Create()
         {
-            // TODO: return appropriate web server
-            return new IISWebServer();
+            // TODO: return appropriate web server, perhaps config driven?
+            return new VsWebServer();
         }
     }
 }

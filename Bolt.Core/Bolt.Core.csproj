@@ -37,6 +37,8 @@
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Pex.Framework, Version=0.94.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=4.0.4.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -70,7 +72,8 @@
     <Compile Include="WebServers\IWebServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebServers\IWebServerStartInfo.cs" />
-    <Compile Include="WebServers\IISWebServer.cs" />
+    <Compile Include="WebServers\IISExpressWebServer.cs" />
+    <Compile Include="WebServers\VsWebServer.cs" />
     <Compile Include="WebServers\WebServerFactory.cs" />
     <Compile Include="WebServers\WebServerStartInfo.cs" />
   </ItemGroup>
