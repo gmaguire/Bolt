@@ -42,7 +42,7 @@ namespace Bolt.Core.WebServers
 
         public void Shutdown()
         {
-            _process.CloseMainWindow();
+            _process.Kill();
             _process.Dispose();
         }
     }
